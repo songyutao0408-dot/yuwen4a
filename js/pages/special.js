@@ -130,6 +130,7 @@
     if (i >= steps.length) {
       // 汇总成一张提纲卡
       saved.done = true; save();
+      setTimeout(function () { if (Y.checkNewBadges) Y.checkNewBadges(); }, 400);
       body.appendChild(h('section.outline-card',
         h('div.outline-head', h('span.outline-seal', '纲'), h('div', h('h2', w.title), h('small', '我的习作提纲'))),
         h('dl.outline-list', steps.map(function (s) {

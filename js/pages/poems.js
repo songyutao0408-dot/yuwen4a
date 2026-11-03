@@ -147,6 +147,7 @@
       Y.progress.setRecite(p.id, level, true);
       Y.sound.play(level === 3 ? 'star' : 'correct');
       Y.ui.stamp('过', document.querySelector('.poem-sheet'));
+      setTimeout(function () { if (Y.checkNewBadges) Y.checkNewBadges(); }, 600);
       var tail = m.peeks() ? '（偷看了 ' + m.peeks() + ' 个字，下次争取少看几个～）' : '一个字都没偷看，真厉害！';
       if (level < 3) {
         Y.ui.modal({

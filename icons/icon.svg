@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#f6efe1"/>
+  <circle cx="404" cy="112" r="54" fill="#2f7d68" opacity=".18"/>
+  <g transform="rotate(-6 256 256)">
+    <rect x="96" y="96" width="320" height="320" rx="48" fill="#b8432f"/>
+    <rect x="116" y="116" width="280" height="280" rx="34" fill="none" stroke="#fff6ee" stroke-width="10" opacity=".55"/>
+    <text x="256" y="236" text-anchor="middle" font-family="Songti SC, STSong, SimSun, Noto Serif CJK SC, serif" font-size="104" font-weight="900" fill="#fff6ee">语文</text>
+    <text x="256" y="364" text-anchor="middle" font-family="Songti SC, STSong, SimSun, Noto Serif CJK SC, serif" font-size="136" font-weight="900" fill="#fff6ee">岛</text>
+  </g>
+</svg>

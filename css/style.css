@@ -773,3 +773,41 @@ textarea.outline-input { min-height: 120px; resize: vertical; line-height: 1.6; 
 .check-row.on .check-box { background: var(--good); border-color: var(--good); color: #fff; }
 .check-row.on span:last-child { color: var(--ink-3); }
 .selfcheck-q .read-btn { align-self: center; }
+
+/* ---------- 错题本、每日一练、徽章、家长页 ---------- */
+.filter-row { display: flex; align-items: flex-start; gap: 8px; margin: 8px 0; }
+.filter-label { flex: 0 0 auto; font-size: 14px; color: var(--ink-3); padding-top: 10px; }
+.filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.filter-chip { min-height: 40px; display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); font-size: 15px; }
+.filter-chip.on { background: var(--seal); border-color: var(--seal); color: #fff; }
+.wrong-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.wrong-item { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); border-left: 4px solid var(--amber); }
+.wrong-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.wrong-prompt { font-weight: 600; line-height: 1.5; }
+.wrong-preview { color: var(--ink-2); font-size: 16px; }
+.wrong-stat { font-size: 13px; color: var(--ink-3); }
+.daily-hero { display: flex; align-items: center; gap: 14px; padding: 16px; margin: 6px 0 14px; border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
+.daily-hero h2 { font-size: 20px; }
+.daily-date { flex: 0 0 auto; width: 72px; height: 76px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--seal); color: var(--seal-ink); line-height: 1.1; transform: rotate(-3deg); }
+.daily-date b { font-size: 32px; font-family: var(--font-poem); }
+.daily-date span { font-size: 14px; }
+.daily-streak { font-size: 15px; color: var(--amber); font-weight: 700; margin-top: 2px; }
+.badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.badge { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 14px 10px; border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
+.badge .badge-ico { font-size: 34px; filter: grayscale(1); opacity: .45; }
+.badge.got .badge-ico { filter: none; opacity: 1; }
+.badge.got { border: 2px solid #e0a321; }
+.badge-name { font-size: 16px; }
+.badge-desc { color: var(--ink-3); line-height: 1.4; }
+.badge-ok { font-size: 13px; color: var(--good); font-weight: 700; }
+.badge-prog { width: 100%; display: flex; flex-direction: column; gap: 2px; align-items: center; }
+.badge-prog .pbar { width: 80%; }
+.badge-prog small { color: var(--ink-3); }
+.new-badge { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: var(--amber-bg); text-align: left; animation: pop .25s ease; }
+.new-badge .badge-ico { font-size: 34px; }
+.new-badge span:last-child { display: flex; flex-direction: column; }
+.acc.low { color: var(--amber); font-weight: 700; }
+.btn.danger { background: transparent; border-color: #c0392b; color: #c0392b; }
+.modal .btn.danger { background: #c0392b; color: #fff; }
+.export-box { width: 100%; min-height: 160px; margin-top: 10px; font-size: 12px; font-family: ui-monospace, Menlo, monospace; }
+.check-details summary { min-height: 48px; display: flex; align-items: center; cursor: pointer; color: var(--theme); font-weight: 700; }

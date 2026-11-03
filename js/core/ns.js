@@ -5,7 +5,7 @@
   'use strict';
 
   var Y = global.YuwenIsland = global.YuwenIsland || {};
-  Y.version = '0.1.0';
+  Y.version = '1.0.0';
   Y.data = Y.data || {};
 
   var FULL = { ',': '，', '.': '。', '?': '？', '!': '！', ':': '：', ';': '；', '(': '（', ')': '）' };

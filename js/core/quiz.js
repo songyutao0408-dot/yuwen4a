@@ -186,6 +186,10 @@
         } else {
           box.appendChild(h('p.sum-sub', '每一题都是一次就答对，真了不起！'));
         }
+        if (opts.onFinish) {
+          try { opts.onFinish({ pct: pct, first: first, second: second, total: scored.length }, box); } catch (e) { /* 忽略 */ }
+        }
+        if (Y.checkNewBadges) Y.checkNewBadges(box);
         box.appendChild(h('div.sum-actions',
           h('a.btn.primary', { href: opts.againHref || location.hash, onclick: function (e) { if ((opts.againHref || location.hash) === location.hash) { e.preventDefault(); Y.router.resolve(); } } }, '再来一轮'),
           h('a.btn', { href: opts.back }, '返回')));

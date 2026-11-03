@@ -54,33 +54,10 @@
       h('h2.q-prompt', g.q),
       h('div.opts.grid', U.shuffle(g.o).map(function (o) {
         return h('button.opt', { type: 'button', onclick: function (e) {
-          if (o === g.a) { sessionOk = true; Y.router.go('#/parent'); }
+          if (o === g.a) { Y.parentOk = true; Y.router.go('#/parent'); }
           else { e.currentTarget.classList.add('bad'); e.currentTarget.disabled = true; Y.ui.toast('不对哦，再想想'); }
         } }, o);
       }))));
-  });
-  var sessionOk = false;
-
-  /* ---------- 家长页（阶段 1：背诵进度 + 待核对清单；完整统计在阶段 5） ---------- */
-  Y.router.add('/parent', function () {
-    if (!sessionOk) return Y.router.go('#/parent-gate');
-    var body = Y.ui.page({ title: '家长页', back: '#/settings' });
-    body.appendChild(h('section.card',
-      h('h3.card-title', '🏯 背诵进度'),
-      h('table.ptable', h('thead', h('tr', h('th', '篇目'), h('th', '一关'), h('th', '二关'), h('th', '三关'))),
-        h('tbody', Y.data.poems.map(function (p) {
-          var r = Y.progress.recite(p.id);
-          return h('tr', h('td', p.title), r.map(function (x) { return h('td', x ? '✓' : '—'); }));
-        })))));
-
-    var list = Y.content.collectNeedsCheck();
-    body.appendChild(h('section.card',
-      h('h3.card-title', '📋 待核对清单（' + list.length + ' 项）'),
-      h('p.card-text.small', '这些内容不是直接来自课本，或者知识清单里注明“待核对”。孩子那边正常显示，请您对照课本或老师的讲解检查一遍；核对无误后，在数据文件里把 needsCheck 改成 false 即可。'),
-      h('ol.check-list', list.map(function (it) {
-        return h('li', h('b', it.label), it.note ? h('small', it.note) : null, h('code', it.path));
-      }))));
-    body.appendChild(h('p.tip.center', '各单元正确率、高频错题、导出和清空数据，会在后续版本加入。'));
   });
 
   /* ---------- 建设中的页面 ---------- */
@@ -104,12 +81,4 @@
     if (poems.length) body.querySelector('.building').insertBefore(h('p.card-text', '本单元的古诗文已经可以学了：'), body.querySelector('.row-btns'));
   };
 
-  [['daily', '每日一练', '📅'], ['wrong', '错题本', '📒'], ['badges', '奖励', '🏅']].forEach(function (x) {
-    Y.router.add('/' + x[0], function () {
-      var body = Y.ui.page({ title: x[1], icon: x[2], nav: x[0] });
-      var extra = x[0] === 'wrong' ? '你答错过的题已经悄悄记下来了（现在有 ' + Y.progress.wrongIds().length + ' 道），重练功能马上就来。' : '马上就来，先去背诵馆闯闯关吧。';
-      body.appendChild(h('section.card.building', h('div.building-ico', x[2]), h('h2', x[1] + '正在建设中'), h('p.card-text', extra),
-        h('a.btn.primary', { href: '#/poems' }, '去古诗文背诵馆')));
-    });
-  });
 })(window.YuwenIsland);

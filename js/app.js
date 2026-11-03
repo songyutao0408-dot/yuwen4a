@@ -31,5 +31,12 @@
     }
   }, 15000);
 
+  // 离线缓存：只在 http(s) 下注册（GitHub Pages）；本地双击打开或单文件版不注册
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !window.YUWEN_BUNDLE) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () { /* 不支持就算了 */ });
+    });
+  }
+
   Y.router.start();
 })(window.YuwenIsland);

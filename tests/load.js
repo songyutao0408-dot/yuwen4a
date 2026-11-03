@@ -24,7 +24,8 @@ const PURE_SCRIPTS = [
   'data/units/u8.js',
   'data/sentences.js',
   'data/writing.js',
-  'js/core/content.js'
+  'js/core/content.js',
+  'js/core/learn.js'
 ];
 
 function load(extra) {
