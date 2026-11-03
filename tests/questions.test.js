@@ -135,6 +135,39 @@ test('田忌赛马：标准答案能赢，按齐威王原顺序出场会输，�
   }
 });
 
+test('六要素点选：每个要素对应一个不同的片段，片段不重复', () => {
+  for (const q of all.filter((x) => x.type === 'tagtext')) {
+    const idx = Object.values(q.answer);
+    assert.ok(uniq(q.data.segments), `${q.id} 片段重复`);
+    assert.ok(uniq(idx), `${q.id} 两个要素指向同一片段`);
+    idx.forEach((i) => assert.ok(i >= 0 && i < q.data.segments.length, `${q.id} 片段序号越界`));
+    assert.deepStrictEqual(plain(q.data.labels), plain(Object.keys(q.answer)));
+    assert.ok(Y.grade.tagtext(q, Object.assign({}, q.answer)));
+  }
+});
+
+test('批注：句子不重复，答案句子存在，批注类型在四种之内', () => {
+  for (const q of all.filter((x) => x.type === 'annotate')) {
+    assert.ok(uniq(q.data.sentences), q.id);
+    [q.answer.at].concat(q.answer.alsoAt || []).forEach((i) => assert.ok(i >= 0 && i < q.data.sentences.length, `${q.id} 句子序号越界`));
+    assert.ok(q.data.kinds.includes(q.answer.kind), q.id);
+    assert.ok(Y.grade.annotate(q, { at: q.answer.at, kind: q.answer.kind }));
+    assert.ok(!Y.grade.annotate(q, { at: q.answer.at, kind: q.data.kinds.find((k) => k !== q.answer.kind) }));
+  }
+});
+
+test('书信拼图：每个空位正好放一张卡片', () => {
+  for (const q of all.filter((x) => x.type === 'letter')) {
+    const keys = q.data.slots.map((s) => s.key);
+    assert.ok(uniq(keys), q.id);
+    const used = Object.values(q.answer);
+    assert.ok(uniq(used) && used.length === keys.length, `${q.id} 空位和卡片数量对不上`);
+    used.forEach((k) => assert.ok(keys.includes(k), `${q.id} 空位“${k}”不存在`));
+    q.data.slots.forEach((s) => assert.ok(['left', 'indent', 'right'].includes(s.pos), q.id));
+    assert.ok(Y.grade.letter(q, Object.assign({}, q.answer)));
+  }
+});
+
 test('自查卡有背面答案', () => {
   for (const q of all.filter((x) => x.type === 'selfcheck')) assert.ok(q.data.back || q.answer, q.id);
 });

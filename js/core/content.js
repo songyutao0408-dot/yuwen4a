@@ -34,6 +34,15 @@
     'myth-imagine': '神奇的想象',
     'myth-character': '神话人物',
     'writing-tips': '习作要点',
+    'six-elements': '事件六要素',
+    'write-clearly': '把事情写清楚',
+    'explain-methods': '说明方法',
+    'guide-talk': '小小讲解员',
+    'annotate': '批注',
+    'feelings': '体会人物心情',
+    'comfort': '安慰',
+    'letter-format': '书信格式',
+    'oral-eyes': '爱护眼睛',
     'unit-element': '单元要点'
   };
 

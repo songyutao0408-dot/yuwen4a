@@ -16,6 +16,10 @@
             h('td', r.time || h('span.todo', '待补录')), h('td', r.place), h('td', r.feeling || h('span.todo', '待补录')));
         }))));
     }
+    if (c.route && c.route.list) {
+      body.appendChild(h('div.kcard-route', h('b', '游览路线：'),
+        c.route.list.map(function (r, j) { return [j ? h('span.route-arrow', ' → ') : null, h('span.route-stop', r)]; })));
+    }
     if (c.poems && c.poems.length) {
       body.appendChild(h('div.row-btns.left', c.poems.map(function (id) {
         var p = Y.content.poem(id);

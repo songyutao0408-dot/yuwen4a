@@ -681,3 +681,63 @@ h1, h2, h3, p { margin: 0; }
 .col-buckets.stack .col-head { border-bottom: none; border-right: 1px solid var(--line); margin: 0; padding: 10px 0; height: 100%; display: grid; place-items: center; }
 .col-buckets.stack .col-drop { min-height: 56px; padding: 2px 0; }
 .col-pool .col-card { max-width: 100%; text-align: left; }
+
+/* 六要素点选、批注 */
+.tag-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px; }
+.tag-chip {
+  min-height: 48px; min-width: 64px; padding: 6px 14px; border-radius: 999px;
+  border: 2px solid var(--line); background: var(--card); font-weight: 700; font-size: 16px; touch-action: manipulation;
+}
+.tag-chip.on { border-color: var(--theme); background: var(--theme); color: #fff; }
+.tag-chip.used:not(.on) { border-style: dashed; color: var(--ink-3); }
+.tag-chip.ok { border-color: var(--jade); background: var(--jade-bg); color: var(--ink); }
+.tag-passage, .ann-passage { line-height: 1.9; padding: 12px; border-radius: 14px; background: var(--paper); }
+.tag-seg, .ann-sent {
+  display: inline; padding: 4px 2px; margin: 0; border: none; background: transparent; font: inherit; text-align: left;
+  border-bottom: 2px dashed var(--line); border-radius: 4px; touch-action: manipulation;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.tag-seg.tagged { background: var(--rose-bg); border-bottom-color: var(--theme); }
+.tag-seg.ok { background: var(--jade-bg); border-bottom-color: var(--jade); }
+.tag-seg.bad { background: var(--amber-bg); border-bottom-color: var(--amber); }
+.tag-badge {
+  display: inline-block; margin-right: 3px; padding: 0 6px; border-radius: 6px; vertical-align: 1px;
+  background: var(--theme); color: #fff; font-size: 13px; font-weight: 700; line-height: 1.6;
+}
+.tag-seg.ok .tag-badge { background: var(--good); }
+.tag-seg.bad .tag-badge { background: var(--amber); }
+.ann-sent { display: inline; }
+.ann-sent.sel { background: var(--rose-bg); border-bottom: 2px solid var(--theme); }
+.ann-sent.ok { background: var(--jade-bg); border-bottom-color: var(--jade); }
+.ann-sent.bad { opacity: .55; }
+.ann-note { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; margin-bottom: 12px; border-radius: 12px; background: var(--amber-bg); border-left: 4px solid var(--amber); }
+.ann-note-label { flex: 0 0 auto; font-weight: 700; font-size: 15px; color: var(--amber); }
+.ann-note-text { font-family: var(--font-poem); }
+.annotate-q .step-label { margin-top: 12px; }
+
+/* 书信格式拼图 */
+.letter-pool { margin-bottom: 12px; }
+.letter-card { text-align: left; line-height: 1.4; }
+.letter-paper {
+  position: relative; display: flex; flex-direction: column; gap: 6px;
+  padding: 16px 12px 18px; border-radius: 6px; background: var(--card); box-shadow: var(--shadow);
+  background-image: repeating-linear-gradient(transparent 0 58px, var(--line) 58px 59px);
+  border: 1px solid var(--line);
+}
+.letter-slot {
+  position: relative; display: flex; align-items: center; min-height: 56px; padding: 4px;
+  border: 2px dashed var(--line); border-radius: 10px; background: rgba(255, 255, 255, .04);
+}
+.letter-paper.picking .letter-slot { border-color: var(--theme); }
+.letter-slot.pos-left { margin-right: 22%; }
+.letter-slot.pos-indent { margin-right: 0; }
+.letter-slot.pos-right { margin-left: 40%; justify-content: flex-end; }
+.indent-mark { flex: 0 0 auto; color: var(--ink-3); letter-spacing: 1px; margin-right: 6px; font-size: 15px; opacity: .7; }
+.letter-drop { flex: 1; display: flex; min-height: 44px; }
+.letter-drop .col-card { width: 100%; }
+.letter-slot.pos-right .letter-drop { justify-content: flex-end; }
+.slot-name { display: none; position: absolute; right: 6px; top: -10px; padding: 0 6px; border-radius: 6px; background: var(--good); color: #fff; font-size: 12px; }
+.letter-paper.revealed .slot-name { display: block; }
+.kcard-route { margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: var(--paper); font-size: 16px; line-height: 1.8; }
+.route-stop { font-weight: 700; }
+.route-arrow { color: var(--theme); }

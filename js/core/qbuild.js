@@ -53,6 +53,14 @@
           { columns: ['起因', '经过', '结果'], summaries: summaries },
           { place: fragments, summary: summary }, hint, expl, opt);
       },
+      /** 六要素点选：segments 拼起来就是短文；answer 是 { 时间: 0, 地点: 1, ... } */
+      tagtext: function (id, lesson, skill, prompt, segments, answer, hint, expl, opt) {
+        return make('tagtext', id, lesson, skill, prompt, { segments: segments, labels: Object.keys(answer) }, answer, hint, expl, opt);
+      },
+      /** 批注：在哪一句旁边批注、属于哪种批注 */
+      annotate: function (id, lesson, skill, prompt, sentences, note, answer, hint, expl, opt) {
+        return make('annotate', id, lesson, skill, prompt, { sentences: sentences, note: note, kinds: ['有疑问', '写得好', '有体会', '有启发'] }, answer, hint, expl, opt);
+      },
       raw: make
     };
   };

@@ -7,7 +7,7 @@ const { load, read } = require('./load');
 const Y = load();
 // 去掉 Markdown 加粗符号再比对
 const md = read('knowledge-yuwen-4a.md').replace(/\*\*/g, '');
-const DONE = [1, 2, 3, 4]; // 已完成的单元，后续阶段往里加
+const DONE = [1, 2, 3, 4, 5, 6, 7, 8];
 
 for (const n of DONE) {
   const u = Y.content.unit(n);
@@ -31,7 +31,7 @@ for (const n of DONE) {
   test(`第${n}单元：题库不少于 40 题（含本单元古诗文）`, () => {
     const pool = Y.content.unitPool(n);
     assert.ok(pool.length >= 40, `只有 ${pool.length} 题`);
-    assert.ok(Y.data.banks['u' + n].length >= 20, '单元自己的题目太少');
+    assert.ok(Y.data.banks['u' + n].length >= 20, '单元自己的题目太少：' + Y.data.banks['u' + n].length);
   });
 
   test(`第${n}单元：题目的 unit、island 正确，id 以 u${n}- 开头`, () => {
