@@ -10,9 +10,18 @@ const ROOT = path.join(__dirname, '..');
 const PURE_SCRIPTS = [
   'js/core/ns.js',
   'js/core/grade.js',
+  'js/core/qbuild.js',
   'data/islands.js',
   'data/poems.js',
   'data/words.js',
+  'data/units/u1.js',
+  'data/units/u2.js',
+  'data/units/u3.js',
+  'data/units/u4.js',
+  'data/units/u5.js',
+  'data/units/u6.js',
+  'data/units/u7.js',
+  'data/units/u8.js',
   'js/core/content.js'
 ];
 

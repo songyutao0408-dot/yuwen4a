@@ -5,10 +5,17 @@
 
   /** 岛的完成度（0~100）：做对过的题 / 题库题数；古诗文馆再和背诵进度各占一半 */
   Y.islandProgress = function (islandId) {
-    var pool = Y.content.pool({ island: islandId, noTypes: ['selfcheck'] });
+    var unitNo = /^u(\d)$/.test(islandId) ? parseInt(islandId.slice(1), 10) : 0;
+    var pool = unitNo ? Y.content.unitPool(unitNo) : Y.content.pool({ island: islandId, noTypes: ['selfcheck'] });
     var qd = Y.progress.data().q;
     var done = pool.filter(function (q) { return qd[q.id] && qd[q.id].r > 0; }).length;
     var pct = pool.length ? done / pool.length * 100 : 0;
+    var u = unitNo && Y.content.unit(unitNo);
+    if (u) {
+      // 单元岛：题目占 7 成，知识卡“我懂了”占 3 成
+      var known = u.cards.filter(function (c) { return Y.progress.isKnown(c.id); }).length;
+      pct = pct * 0.7 + known / u.cards.length * 30;
+    }
     if (islandId === 'poems') {
       var levels = 0, poems = Y.data.poems;
       poems.forEach(function (p) { levels += Y.progress.recite(p.id).filter(Boolean).length; });

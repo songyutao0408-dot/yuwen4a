@@ -95,15 +95,14 @@
     return body;
   }
 
-  Y.router.add('/unit/:n', function (params) {
-    var n = parseInt(params.n, 10);
-    var isl = Y.data.islands.filter(function (x) { return x.unit === n; })[0];
-    if (!isl) return Y.router.go('#/');
+  /** 还没做完的单元岛（由 js/pages/unit.js 调用） */
+  Y.pages = Y.pages || {};
+  Y.pages.building = function (isl, n) {
     var poems = Y.data.poems.filter(function (p) { return p.unit === n; });
     var body = building(isl.name, isl.icon, '第' + U.cnNum(n) + '单元：' + isl.lessons + '。知识卡、练一练和闯关测验马上就来。', '#/', isl.color,
       { links: poems.map(function (p) { return h('a.btn', { href: '#/poem/' + p.id }, '《' + p.title + '》'); }) });
     if (poems.length) body.querySelector('.building').insertBefore(h('p.card-text', '本单元的古诗文已经可以学了：'), body.querySelector('.row-btns'));
-  });
+  };
 
   Y.router.add('/island/:id', function (params) {
     var isl = Y.data.specials.filter(function (x) { return x.id === params.id; })[0];

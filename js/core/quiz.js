@@ -14,6 +14,12 @@
     return PRAISE[praiseIdx];
   }
 
+  function lessonChip(q) {
+    var ls = Y.content.lessonOf(q);
+    if (!ls) return null;
+    return h('span.chip.soft', ls === '习作' || ls === '快乐读书吧' ? ls : '《' + ls + '》');
+  }
+
   /** 按正确率给星：≥60% 一星，≥80% 两星，100% 三星 */
   function starsFor(pct) { return pct >= 100 ? 3 : pct >= 80 ? 2 : pct >= 60 ? 1 : 0; }
 
@@ -129,7 +135,7 @@
         var renderer = Y.qtypes[q.type];
         view = renderer(q, ctx);
         var card = h('section.q-card', { 'data-qid': q.id },
-          h('div.q-meta', h('span.chip', Y.content.skillLabel(q.skill)), q.poemId ? h('span.chip.soft', '《' + Y.content.poemTitle(q.poemId) + '》') : null),
+          h('div.q-meta', h('span.chip', Y.content.skillLabel(q.skill)), lessonChip(q)),
           h('h2.q-prompt', q.prompt),
           q.data && q.data.quote ? h('blockquote.q-quote.poem-font', q.data.quote) : null,
           view.el);
@@ -170,7 +176,8 @@
         var weak = {};
         items.forEach(function (it) {
           if (it.result === 'first') return;
-          var k = Y.content.skillLabel(it.q.skill) + (it.q.poemId ? '（《' + Y.content.poemTitle(it.q.poemId) + '》）' : '');
+          var ls = Y.content.lessonOf(it.q);
+          var k = Y.content.skillLabel(it.q.skill) + (ls ? '（' + (ls === '习作' ? ls : '《' + ls + '》') + '）' : '');
           weak[k] = true;
         });
         var wk = Object.keys(weak);

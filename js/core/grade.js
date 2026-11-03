@@ -10,6 +10,8 @@
  *   columns  分栏归类 data.columns[]        answer: { 卡片: 栏名 }
  *   segment  断句   data.text 无标点原文     answer: "王戎七岁/尝与诸小儿游", acceptable: [...]
  *   selfcheck 自查卡 data.back 背面答案      孩子自己判断对错
+ *   story3   起因经过结果 data.columns, data.summaries[]   answer: { place: {片段: 栏}, summary: 正确的主要内容 }
+ *   tianji   田忌赛马 data.king[] 齐威王出场顺序, data.speed   answer: 能赢的田忌出场顺序
  */
 (function (Y) {
   'use strict';
@@ -44,6 +46,21 @@
     segment: function (q, breaks) {
       return Y.grade.segmentAnswers(q).some(function (a) { return U.sameSet(U.breaks(a), breaks); });
     },
-    segmentAnswers: function (q) { return [q.answer].concat(q.acceptable || []); }
+    segmentAnswers: function (q) { return [q.answer].concat(q.acceptable || []); },
+
+    /** 起因经过结果：r = { place: {片段: 栏}, summary: '所选主要内容' } */
+    story3: function (q, r) {
+      return Y.grade.columns({ answer: q.answer.place }, r.place) && r.summary === q.answer.summary;
+    },
+
+    /** 田忌赛马：r = 田忌三匹马的出场顺序，赢两局及以上算成功 */
+    tianji: function (q, r) { return Y.grade.race(q, r).filter(function (x) { return x.win; }).length >= 2; },
+    race: function (q, order) {
+      var d = q.data;
+      return d.king.map(function (k, i) {
+        var t = order[i];
+        return { round: i + 1, tian: t, king: k, win: d.speed.tian[t] > d.speed.king[k] };
+      });
+    }
   };
 })(window.YuwenIsland);

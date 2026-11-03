@@ -16,7 +16,9 @@
 
     var pool = h('div.col-pool', { 'aria-label': '待放的卡片' });
     var bucketEls = {};
-    var bucketWrap = h('div.col-buckets' + (columns.length > 3 ? '.many' : ''), columns.map(function (name) {
+    // 卡片是长句子时，栏改成上下排列，免得手机上挤成一列一个字
+    var stack = opts.stack != null ? opts.stack : items.some(function (t) { return t.length > 10; });
+    var bucketWrap = h('div.col-buckets' + (stack ? '.stack' : '') + (columns.length > 3 ? '.many' : ''), columns.map(function (name) {
       var drop = h('div.col-drop');
       var b = h('div.col-bucket', { role: 'button', tabindex: '0' }, h('div.col-head', name), drop);
       b._col = name; b._drop = drop;

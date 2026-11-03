@@ -8,7 +8,7 @@ const { load } = require('./load');
 
 const Y = load();
 const all = Y.content.all();
-const TYPES = Object.keys(Y.grade).filter((k) => k !== 'segmentAnswers').concat(['selfcheck']);
+const TYPES = Object.keys(Y.grade).filter((k) => !['segmentAnswers', 'race'].includes(k)).concat(['selfcheck']);
 
 test('题库不为空，古诗文馆至少 40 题', () => {
   assert.ok(Y.content.pool({ island: 'poems' }).length >= 40);
@@ -112,6 +112,26 @@ test('断句：每个可接受答案去掉“/”都等于原文，且至少断�
       assert.ok(Y.grade.segment(q, Y.util.breaks(a)), `${q.id}：“${a}”判分不通过`);
     }
     assert.ok(!Y.grade.segment(q, []), `${q.id}：不断句不应该算对`);
+  }
+});
+
+test('起因经过结果：三栏都有片段，主要内容在选项里且不重复', () => {
+  for (const q of all.filter((x) => x.type === 'story3')) {
+    const cols = Object.values(q.answer.place);
+    q.data.columns.forEach((c) => assert.ok(cols.includes(c), `${q.id} 栏“${c}”是空的`));
+    cols.forEach((c) => assert.ok(q.data.columns.includes(c), `${q.id} 栏“${c}”不存在`));
+    assert.ok(uniq(q.data.summaries) && q.data.summaries.includes(q.answer.summary), `${q.id} 主要内容选项有问题`);
+    assert.ok(Y.grade.story3(q, { place: Object.assign({}, q.answer.place), summary: q.answer.summary }));
+  }
+});
+
+test('田忌赛马：标准答案能赢，按齐威王原顺序出场会输，只有一种排法能赢', () => {
+  for (const q of all.filter((x) => x.type === 'tianji')) {
+    assert.ok(Y.grade.tianji(q, q.answer.slice()), `${q.id} 标准答案赢不了`);
+    assert.ok(!Y.grade.tianji(q, q.data.king.slice()), `${q.id} 不调换顺序也能赢，题目没意义`);
+    const horses = q.data.king.slice();
+    const perms = (a) => (a.length <= 1 ? [a] : a.flatMap((x, i) => perms(a.filter((_, j) => j !== i)).map((p) => [x, ...p])));
+    assert.strictEqual(perms(horses).filter((p) => Y.grade.tianji(q, p)).length, 1);
   }
 });
 
