@@ -741,3 +741,35 @@ h1, h2, h3, p { margin: 0; }
 .kcard-route { margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: var(--paper); font-size: 16px; line-height: 1.8; }
 .route-stop { font-weight: 700; }
 .route-arrow { color: var(--theme); }
+
+/* ---------- 专项岛 ---------- */
+.idea-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.idea-chip { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 12px; border-radius: 12px; background: var(--paper); border: 1.5px solid var(--line); font-size: 16px; line-height: 1.4; }
+.idea-chip.btnish { min-height: 48px; cursor: pointer; text-align: left; }
+.idea-chip.btnish:active { background: var(--rose-bg); border-color: var(--theme); }
+.phrases li { font-family: var(--font-poem); }
+.writing-card { min-height: 120px; }
+.writing-ico { font-size: 28px; line-height: 1.2; }
+.writing-card .poem-card-title { font-size: 19px; }
+.outline-input { width: 100%; margin-bottom: 8px; }
+textarea.outline-input { min-height: 120px; resize: vertical; line-height: 1.6; }
+.outline-card {
+  position: relative; padding: 18px 16px; margin: 8px 0 12px; border-radius: 8px var(--radius) var(--radius) var(--radius);
+  background: var(--card); box-shadow: var(--shadow); border-left: 6px solid var(--theme);
+  background-image: repeating-linear-gradient(transparent 0 35px, var(--line) 35px 36px);
+}
+.outline-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.outline-head h2 { font-size: 20px; }
+.outline-head small { color: var(--ink-3); }
+.outline-seal { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 10px; background: var(--seal); color: var(--seal-ink); font-family: var(--font-poem); font-size: 26px; font-weight: 900; transform: rotate(-6deg); }
+.outline-list { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; }
+.outline-list dt { font-weight: 700; color: var(--theme); white-space: nowrap; }
+.outline-list dd { margin: 0; white-space: pre-wrap; }
+.outline-foot { margin-top: 14px; text-align: right; color: var(--ink-3); font-size: 14px; }
+.checklist { display: flex; flex-direction: column; gap: 4px; padding: 8px 12px; }
+.check-row { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 4px; border: none; background: transparent; text-align: left; font-size: var(--fs); border-bottom: 1px solid var(--line); }
+.check-row:last-child { border-bottom: none; }
+.check-box { flex: 0 0 30px; height: 30px; border-radius: 9px; border: 2px solid var(--line); display: grid; place-items: center; color: transparent; font-weight: 900; }
+.check-row.on .check-box { background: var(--good); border-color: var(--good); color: #fff; }
+.check-row.on span:last-child { color: var(--ink-3); }
+.selfcheck-q .read-btn { align-self: center; }

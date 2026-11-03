@@ -104,12 +104,6 @@
     if (poems.length) body.querySelector('.building').insertBefore(h('p.card-text', '本单元的古诗文已经可以学了：'), body.querySelector('.row-btns'));
   };
 
-  Y.router.add('/island/:id', function (params) {
-    var isl = Y.data.specials.filter(function (x) { return x.id === params.id; })[0];
-    if (!isl) return Y.router.go('#/');
-    building(isl.name, isl.icon, isl.desc + '，马上就来。', '#/', isl.color);
-  });
-
   [['daily', '每日一练', '📅'], ['wrong', '错题本', '📒'], ['badges', '奖励', '🏅']].forEach(function (x) {
     Y.router.add('/' + x[0], function () {
       var body = Y.ui.page({ title: x[1], icon: x[2], nav: x[0] });

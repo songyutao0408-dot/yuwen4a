@@ -43,6 +43,21 @@
     'comfort': '安慰',
     'letter-format': '书信格式',
     'oral-eyes': '爱护眼睛',
+    'rhetoric': '修辞',
+    'imitate': '仿写',
+    'transform': '句式转换',
+    'shorten': '缩句',
+    'conjunction': '关联词',
+    'punctuation': '标点符号',
+    'sick': '修改病句',
+    'pinyin': '拼音',
+    'polyphone': '多音字',
+    'char-confuse': '形近字、同音字',
+    'synonym': '近义词、反义词',
+    'collocation': '词语搭配',
+    'word-pattern': '词语形式',
+    'idiom': '成语',
+    'dictation': '听写',
     'unit-element': '单元要点'
   };
 
@@ -113,6 +128,25 @@
     return out;
   }
 
+  /** 听写卡：家长补录词语表后自动生成（朗读词语，孩子在纸上写，再翻卡自查） */
+  function dictationCards() {
+    var out = [];
+    ((Y.data.words && Y.data.words.lessons) || []).forEach(function (ls, li) {
+      (ls.words || []).forEach(function (w, wi) {
+        if (!w || !w.word) return;
+        out.push({
+          id: 'dict-' + li + '-' + wi, unit: ls.unit || null, island: 'words', lesson: ls.lesson || '',
+          skill: 'dictation', type: 'selfcheck', difficulty: 1,
+          prompt: '听写：听朗读，在纸上写下这个词语。' + (w.pinyin ? '' : ''),
+          data: { front: w.pinyin ? '拼音提示：' + w.pinyin : '先听，再写', back: w.word, speak: w.word, poem: false },
+          answer: w.word, hint: '', explanation: '对照一下，写错的字多写两遍。',
+          source: 'textbook', needsCheck: !!ls.needsCheck, generated: true
+        });
+      });
+    });
+    return out;
+  }
+
   function build() {
     var all = [];
     (Y.data.poems || []).forEach(function (p) {
@@ -129,7 +163,7 @@
     Object.keys(Y.data.banks || {}).forEach(function (k) {
       (Y.data.banks[k] || []).forEach(function (q) { if (!q.island) q.island = k; all.push(q); });
     });
-    all = all.concat(tableQuestions());
+    all = all.concat(tableQuestions()).concat(dictationCards());
     var byId = {};
     all.forEach(function (q) { byId[q.id] = q; });
     return { all: all, byId: byId };
@@ -145,6 +179,8 @@
     skills: SKILLS,
 
     unit: function (n) { return (Y.data.units || {})[n] || null; },
+    writing: function (id) { return (Y.data.writing || []).filter(function (w) { return w.id === id; })[0] || null; },
+    special: function (id) { return (Y.data.specials || []).filter(function (x) { return x.id === id; })[0] || null; },
     unitIsland: function (n) { return (Y.data.islands || []).filter(function (x) { return x.unit === n; })[0] || null; },
 
     /** 单元题库 = 本单元题目 + 本单元的古诗文题（不含默写自查卡） */

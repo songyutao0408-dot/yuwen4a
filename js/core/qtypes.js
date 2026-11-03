@@ -329,8 +329,13 @@
     });
     var locked = false;
     function done(ok) { if (locked) return; ctx.submit(ok, { final: true, self: true }); }
+    var sayBtn = null;
+    if (q.data.speak && Y.speech.enabled()) {
+      sayBtn = h('button.btn.small.read-btn', { type: 'button', onclick: function () { Y.speech.speak(q.data.speak, { rate: 0.6 }); } }, Y.ui.svg('speaker'), h('span', '再读一遍'));
+      setTimeout(function () { Y.speech.speak(q.data.speak, { rate: 0.6 }); }, 300);
+    }
     return {
-      el: h('div.selfcheck-q', card, flip, self),
+      el: h('div.selfcheck-q', sayBtn, card, flip, self),
       lock: function () { locked = true; self.classList.add('hidden'); },
       retry: function () { locked = false; },
       reveal: function () { card.classList.add('flipped'); }

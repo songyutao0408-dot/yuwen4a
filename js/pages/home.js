@@ -16,6 +16,16 @@
       var known = u.cards.filter(function (c) { return Y.progress.isKnown(c.id); }).length;
       pct = pct * 0.7 + known / u.cards.length * 30;
     }
+    if (islandId === 'writing') {
+      // 习作小助手：每篇提纲完成算一半，自查清单全部勾完算另一半
+      var ws = Y.data.writing || [], got = 0;
+      ws.forEach(function (w) {
+        var o = Y.store.get('outline:' + w.id, null), c = Y.store.get('check:' + w.id, {}) || {};
+        if (o && o.done) got += 0.5;
+        if (w.checklist.every(function (_, i) { return c[i]; })) got += 0.5;
+      });
+      pct = ws.length ? got / ws.length * 100 : 0;
+    }
     if (islandId === 'poems') {
       var levels = 0, poems = Y.data.poems;
       poems.forEach(function (p) { levels += Y.progress.recite(p.id).filter(Boolean).length; });

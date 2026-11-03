@@ -22,6 +22,8 @@ const PURE_SCRIPTS = [
   'data/units/u6.js',
   'data/units/u7.js',
   'data/units/u8.js',
+  'data/sentences.js',
+  'data/writing.js',
   'js/core/content.js'
 ];
 
